@@ -23,12 +23,10 @@
   <div class="row">
     <div class="col-12">
       <h2>Random team order</h2>
-      <ol>
-        {% for team in teams %}
-          <li>{{ team }}</li>
-        {% endfor %}
-        </ol>
+      <button hx-get="/team/random" hx-target="#random-order" hx-swap="outerHTML">Refresh</button>
+      {% include "team/partials/random_order.html" %}
     </div>
   </div>
 </section>
+<script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
 {% endblock content %}

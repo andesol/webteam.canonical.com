@@ -52,21 +52,17 @@ def index():
 
 
 @webteam.route("/random")
-def random():
-    display_names = get_all_display_names()
+def random_people():
     team_names = get_all_teams()
+    teams = rnd.sample(team_names, len(team_names))
 
-    context = {
-        "user": rnd.choice(display_names),
-        "teams": rnd.sample(team_names, len(team_names)),
-    }
+    if "HX-Request" in request.headers:
+        return render_template("team/partials/random_order.html", teams=teams)
 
-    if request.headers.get(
-        "Content-Type"
-    ) and "application/json" in request.headers.get("Content-Type"):
-        return jsonify(context)
-    else:
-        return render_template("team/random.html", **context)
+    display_names = get_all_display_names()
+    user = rnd.choice(display_names)
+
+    return render_template("team/random.html", user=user, teams=teams)
 
 
 @webteam.route("/mattermost")
